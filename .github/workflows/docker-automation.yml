@@ -40,7 +40,7 @@ jobs:
         if: steps.diff.outputs.status == 'success'
         uses: elgohr/Publish-Docker-Github-Action@master
         with:
-          name: luqmansen/hanako-mongodb
+          name: luqmansen/hanako-postgresql
           username: ${{ secrets.DOCKER_USERNAME }}
           password: ${{ secrets.DOCKER_PASSWORD }}
 
