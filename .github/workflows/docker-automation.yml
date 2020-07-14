@@ -14,10 +14,10 @@ jobs:
 
       - name: Create local changes
         run: |
-          wget "https://raw.githubusercontent.com/manami-project/anime-offline-database/master/anime-offline-database.json"
+          curl "https://raw.githubusercontent.com/manami-project/anime-offline-database/master/anime-offline-database.json" > anime-offline-database.json
           python3 main.py
           sudo apt-get install sqlite3
-          sqlite3 anime.db .dump >> anime.sql && echo "Dump sql success"
+          sqlite3 anime.db .dump > anime.sql && echo "Dump sql success"
           echo "Yeet\n\n"
       - name: Check diff then stage and commit files
         id: diff
