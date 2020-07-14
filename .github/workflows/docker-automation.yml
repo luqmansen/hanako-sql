@@ -14,21 +14,25 @@ jobs:
 
       - name: Create local changes
         run: |
-            curl "https://raw.githubusercontent.com/manami-project/anime-offline-database/master/anime-offline-database.json" > anime-offline-database.json
-
+          wget "https://raw.githubusercontent.com/manami-project/anime-offline-database/master/anime-offline-database.json"
+          python3 main.py
+          sudo apt-get install sqlite3
+          sqlite3 anime.db .dump >> anime.sql && echo "Dump sql success"
+          echo "Yeet\n\n"
       - name: Check diff then stage and commit files
         id: diff
         run: |
-          if ! git diff --no-ext-diff --quiet --exit-code
+          if [[ `git status --porcelain` ]]
             then
               git add -A
               git config --local user.email "action@github.com"
               git config --local user.name "Update Automation"
               git commit -m "Automation update entries $(date +'%Y' ) week $(date '+%V')"
               echo ::set-output name=status::success
-            else
-              echo ::set-output name=status::failure
+          else
+            echo ::set-output name=status::failure
           fi
+
       - name: Push changes
         uses: ad-m/github-push-action@master
         if: steps.diff.outputs.status == 'success'
