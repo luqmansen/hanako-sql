@@ -1,2 +1,2 @@
 # hanako-sql
-Preseeded Minami Anime Offiline Database to Docker Image
+Pre-seeded Minami Anime Offiline Database to Docker Image
